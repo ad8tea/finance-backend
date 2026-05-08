@@ -1,66 +1,53 @@
 # Finance Backend System
 
-## Overview
-
-This project is a backend system for managing financial records with role-based access control.
+A backend REST API for managing financial records with role-based access control, 
+built with Node.js and Express.js.
 
 ## Features
 
-### Authentication
-
-* User registration and login
-* JWT-based authentication
-
-### Roles
-
-* Viewer: Can view data
-* Analyst: Can view records and summaries
-* Admin: Full access (create/manage records)
-
-### Financial Records
-
-* Create records (Admin only)
-* View records (Admin, Analyst)
-* User-specific data filtering
-
-### Dashboard
-
-* Total Income
-* Total Expense
-* Net Balance
+- JWT-based authentication (register & login)
+- Role-based access control with three roles:
+  - **Admin** — full access: create and manage all records
+  - **Analyst** — view records and summaries
+  - **Viewer** — read-only access to data
+- Financial record management (income, expenses, net balance)
+- User-specific data filtering
+- Dashboard summary endpoint (total income, total expense, net balance)
 
 ## Tech Stack
 
-* Node.js
-* Express.js
-* In-memory storage (for simplicity)
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Auth:** JSON Web Tokens (JWT)
+- **Storage:** In-memory (resets on restart — focuses on API design over persistence)
 
 ## API Endpoints
 
 ### Auth
-
-* POST /auth/register
-* POST /auth/login
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/register` | Register a new user |
+| POST | `/auth/login` | Login and receive JWT token |
 
 ### Records
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/records` | Admin only | Create a new financial record |
+| GET | `/records` | Admin, Analyst | View all records |
+| GET | `/records/summary` | Admin, Analyst | Get income, expense, and net balance |
 
-* POST /records (Admin only)
-* GET /records (Admin, Analyst)
-* GET /records/summary
+## Getting Started
 
-## Assumptions
-
-* Data is stored in memory (resets on restart)
-* Authentication uses JWT tokens
-
-## How to Run
-
+```bash
 npm install
 npm run dev
+```
 
-Server runs on:
-http://localhost:5000
+Server runs at: `http://localhost:5000`
 
 ## Notes
 
-This project focuses on backend design, access control, and API structure rather than production-level persistence.
+- Data is stored in memory and resets on server restart
+- Project emphasis is on backend architecture, access control design, 
+  and clean API structure rather than production-level persistence
+- To extend: swap in-memory storage with MongoDB or PostgreSQL
